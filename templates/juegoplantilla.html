@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+</head>
+
+<body>
+    <section class="jumbotron-heading text-center mt-5">
+        <div class="container">
+            <h1 class="jumbotron-heading">Welcome to The Great Number Game!</h1>
+            <p class="lead text-muted">I am thinking of a number between 1 and 100 <br> Take a guess!</p>
+        </div>
+
+        <!-- principal -->
+        {% if (numerodeusuario
+        <=0) or (numerodeusuario>100)%}
+            <div class="container-fluid justify-content-center border border-info w-25 bg-info">
+                <form action='/juego' method='post' class="w-100 text-center mb-3 mt-md-4">
+                    <input autofocus autocomplete="off" class="form-control text-center" type="text" placeholder="Number between 1 and 100" aria-label="" name='numerousuario'>
+                    <button type="submit" value='create user' class="btn btn-secondary mt-2">Luck!</button>
+                </form>
+                <h3>you have {{oportunidades}} chances left</h3>
+            </div>
+            {% endif %}
+            <!-- Si acierta: -->
+            {% if ((numerodeusuario)==(numerorandom)) %}
+            <div class="container-fluid border border-success w-25 bg-success">
+                <h3>😎{{texto_h3}}😎</h3>
+                <h3> you finished the game on chance {{contador}}</h3>
+                <a class="btn btn-secondary btn-lg btn-block" href="/">Play Again!!!</a>
+            </div>
+            {% endif %}
+            <!-- si pierde -->
+            {% if validador == True %}
+            <div class="container-fluid border border-success w-25 bg-primary">
+                <h3>😥{{texto_h3}}😥</h3>
+                <a class="btn btn-secondary btn-lg btn-block" href="/">Play Again!!!</a>
+            </div>
+            {% endif %}
+            <!-- si es mayor o menor-->
+            {% if ((numerodeusuario)>(numerorandom)) and (numerodeusuario
+            <=100) or ((numerodeusuario) <(numerorandom) and (numerodeusuario>0)) and (validador==False) %}
+                <div class="container-fluid border border-danger w-25 bg-danger">
+                    <h3>{{texto_h3}}</h3>
+                    <div class="d-flex justify-content-center">
+                        <form action='/juego' method='post' class="w-100 text-center mb-3">
+                            <input autofocus autocomplete="off" class="form-control text-center " type="text" placeholder="Number between 1 and 100" aria-label="" name='numerousuario'>
+                            <button type="submit" value='create user' class="btn btn-secondary mt-2">Luck!</button>
+                        </form>
+                    </div>
+                    <h3>you have {{oportunidades}} out of 5 chances left</h3>
+                </div>
+                {% endif %}
+    </section>
+    {# <h3>numero random {{numerorandom}}</h3>
+    <h3>contador {{contador}}</h3>
+    <h3>temp {{temp}}</h3> #}
+
+</body>
+
+</html>
